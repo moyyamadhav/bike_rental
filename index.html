@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rent a Bike</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="logo">Rent a <span>Bike</span></div>
+
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#bikes">Bikes</a>
+      <a href="#bookings">My Bookings</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <select id="themeSelect" class="theme-select" aria-label="Choose theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="ocean">Ocean</option>
+      </select>
+      <button id="signInBtn" class="btn btn-outline">Sign In</button>
+      <button id="signUpBtn" class="btn btn-primary">Sign Up</button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Plan your ride now</p>
+      <h1>Ride more. <span>Spend less</span> on bike rentals.</h1>
+      <p class="lead">
+        Scooties, geared bikes and electric rides with unbeatable prices,
+        flexible pick-up and drop-off options and much more.
+      </p>
+      <div class="hero-buttons">
+        <a href="#search" class="btn btn-primary btn-lg">Book Ride &#10004;</a>
+        <a href="#bikes" class="btn btn-dark btn-lg">Learn More &#8250;</a>
+      </div>
+    </div>
+    <div class="hero-art" id="heroBike"></div>
+  </section>
+
+  <!-- ============ SEARCH ============ -->
+  <section id="search" class="section">
+    <div class="search-card">
+      <h2 class="section-title">Book a bike</h2>
+      <p class="section-sub">Choose where and when you want to ride.</p>
+
+      <form id="searchForm" class="form-grid">
+        <div class="field">
+          <label for="district">Pick-up District <span class="req">*</span></label>
+          <select id="district"></select>
+        </div>
+        <div class="field">
+          <label for="pickupLoc">Pick-up Location <span class="req">*</span></label>
+          <select id="pickupLoc"></select>
+        </div>
+        <div class="field">
+          <label for="dropLoc">Drop-off Location <span class="req">*</span></label>
+          <select id="dropLoc"></select>
+        </div>
+
+        <div class="field">
+          <label for="pickAt">Pick-up Date &amp; Time <span class="req">*</span></label>
+          <input type="datetime-local" id="pickAt" />
+        </div>
+        <div class="field">
+          <label for="dropAt">Drop-off Date &amp; Time <span class="req">*</span></label>
+          <input type="datetime-local" id="dropAt" />
+        </div>
+        <div class="field search-btn">
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Search</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ BIKES ============ -->
+  <section id="bikes" class="section">
+    <h2 class="section-title">Our bikes</h2>
+    <p class="section-sub">Pick a ride that fits your trip.</p>
+
+    <div class="catalog">
+      <aside class="filters">
+        <div class="filters-head">
+          <h3>Filters</h3>
+        </div>
+
+        <div class="filter-group">
+          <h4>Type</h4>
+          <label><input type="checkbox" name="type" value="Scooty" /> Scooty</label>
+          <label><input type="checkbox" name="type" value="Geared" /> Geared</label>
+          <label><input type="checkbox" name="type" value="Sport" /> Sport</label>
+          <label><input type="checkbox" name="type" value="Electric" /> Electric</label>
+        </div>
+
+        <div class="filter-group">
+          <h4>Transmission</h4>
+          <label><input type="checkbox" name="trans" value="Gearless" /> Gearless</label>
+          <label><input type="checkbox" name="trans" value="Gear" /> Gear</label>
+        </div>
+
+        <div class="filter-buttons">
+          <button id="applyFilters" class="btn btn-dark btn-block">Apply</button>
+          <button id="resetFilters" class="btn btn-outline btn-block">Reset</button>
+        </div>
+      </aside>
+
+      <div class="catalog-main">
+        <div class="toolbar">
+          <select id="sort" class="theme-select">
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="name">Name A-Z</option>
+          </select>
+          <span id="count" class="muted"></span>
+        </div>
+        <div id="bikeGrid" class="bike-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MY BOOKINGS ============ -->
+  <section id="bookings" class="section">
+    <h2 class="section-title">My bookings</h2>
+    <p class="section-sub">Your confirmed rides are saved on this device.</p>
+    <div id="bookingsList" class="bookings-list"></div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact">
+    <div>
+      <h2 class="section-title">Contact us</h2>
+      <p class="section-sub">Questions about a ride or a booking? Send us a message.</p>
+    </div>
+    <form id="contactForm" class="contact-form">
+      <input type="text" placeholder="Your name" required />
+      <input type="email" placeholder="Your email" required />
+      <textarea placeholder="Your message" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Rent a Bike. All rights reserved.</p>
+  </footer>
+
+  <!-- ============ BOOKING MODAL ============ -->
+  <div id="bookingModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" data-close="bookingModal" aria-label="Close">&times;</button>
+      <div class="booking-layout">
+
+        <div class="summary-box">
+          <h2>Order Summary</h2>
+          <p class="muted">Check your items and select a payment method.</p>
+          <div id="sumBike" class="sum-bike"></div>
+          <div id="sumPlaces" class="sum-places"></div>
+
+          <div class="coupon-row">
+            <input id="couponInput" type="text" placeholder="Coupon (try WELCOME10)" />
+            <button id="applyCoupon" type="button" class="btn btn-dark">Apply</button>
+          </div>
+          <div id="sumRows"></div>
+        </div>
+
+        <div class="payment-box">
+          <h2>Payment Details</h2>
+          <p class="muted">Complete your order by providing your details.</p>
+
+          <form id="orderForm" class="stack">
+            <div class="field">
+              <label for="oName">Full name</label>
+              <input id="oName" name="name" type="text" />
+            </div>
+            <div class="field">
+              <label for="oPhone">Phone</label>
+              <input id="oPhone" name="phone" type="tel" placeholder="10-digit number" />
+            </div>
+            <div class="field">
+              <label for="oEmail">Email</label>
+              <input id="oEmail" name="email" type="email" />
+            </div>
+            <div class="field">
+              <label for="oAddress">Address</label>
+              <textarea id="oAddress" name="address"></textarea>
+            </div>
+
+            <div class="field">
+              <label>Payment method</label>
+              <div class="methods">
+                <label><input type="radio" name="method" value="upi" checked /> UPI</label>
+                <label><input type="radio" name="method" value="card" /> Card</label>
+                <label><input type="radio" name="method" value="cash" /> Pay at pick-up</label>
+              </div>
+            </div>
+
+            <p class="muted small">Down time charges as per policy. Policy excess charges waiver for denting and painting, excluding major accident repairs.</p>
+            <button type="submit" class="btn btn-dark btn-block btn-lg">Place Order</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DETAILS MODAL ============ -->
+  <div id="detailsModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" data-close="detailsModal" aria-label="Close">&times;</button>
+      <div id="detailsBody"></div>
+    </div>
+  </div>
+
+  <!-- ============ AUTH MODAL ============ -->
+  <div id="authModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box auth-box">
+      <div class="auth-head">
+        <h2 id="authTitle">Sign Up</h2>
+        <button class="modal-close auth-close" data-close="authModal" aria-label="Close">&times;</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-mode="signup">Sign Up</button>
+          <button class="auth-tab" data-mode="signin">Sign In</button>
+        </div>
+        <form id="authForm" class="stack">
+          <div class="field" id="nameField">
+            <input name="name" type="text" placeholder="Full name" />
+          </div>
+          <div class="field">
+            <input name="email" type="email" placeholder="Email" />
+          </div>
+          <div class="field">
+            <input name="password" type="password" placeholder="Password" />
+          </div>
+          <button id="authSubmit" type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+        </form>
+        <p class="muted small center">Demo only: accounts are stored in this browser.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
